@@ -5,7 +5,7 @@ async function doInvoke(funcName, args1, args2) {
 
 // ( async () => {
 //     var GatewayVersion = await doInvoke("gateway")
-//     console.log(`Let's connect to wss://gateway.discord.gg/?v=${GatewayVersion}`);
+//     console.log(`Let"s connect to wss://gateway.discord.gg/?v=${GatewayVersion}`);
 // } )();
 
 async function submitToken(string) {
@@ -21,8 +21,8 @@ document.querySelector(".tokenSave").addEventListener("click", function () {
     console.log("toyota")
     submitToken(`${document.querySelector(".token").value}`)
     document.querySelector(".token").value = ""
-    document.querySelector(".token").placeholder = "Token Saved (Note: Restart Needed)"
-    document.querySelector(".tokenSave").textContent = "Update"
+    document.querySelector(".token").placeholder = "saved (restart needed)"
+    document.querySelector(".tokenSave").textContent = "update"
 });
 
 document.querySelector(".aniSave").addEventListener("click", function () {
@@ -33,9 +33,12 @@ document.querySelector(".aniReset").addEventListener("click", function () {
     doInvoke("animeName", "")
 });
 
-document.addEventListener('drop', (event) => {
+document.querySelector(".dropfile").addEventListener("drop", (event) => {
     event.preventDefault();
     event.stopPropagation();
+    document.querySelector(".dropfile").style["backgroundColor"] = "hsla(0, 0%, 0%, 0)"
+    document.querySelector(".dropfile").style["color"] = "#fff"
+    document.querySelector(".interactiveToggle").src = "assets/pause.svg"
 
     for (const f of event.dataTransfer.files) {
         // Using the path attribute to get absolute file path
@@ -44,15 +47,37 @@ document.addEventListener('drop', (event) => {
     }
 });
 
-document.addEventListener('dragover', (e) => {
+document.querySelector(".dropfile").addEventListener("dragover", (e) => {
     e.preventDefault();
     e.stopPropagation();
 });
 
-document.addEventListener('dragenter', (event) => {
-    console.log('File is in the Drop Space');
+document.querySelector(".dropfile").addEventListener("dragenter", (event) => {
+    console.log("File is in the Drop Space");
+    document.querySelector(".dropfile").style["backgroundColor"] = "#181825"
+    document.querySelector(".dropfile").style["color"] = "#fff"
 });
 
-document.addEventListener('dragleave', (event) => {
-    console.log('File has left the Drop Space');
+document.querySelector(".dropfile").addEventListener("dragleave", (event) => {
+    console.log("File has left the Drop Space");
+    document.querySelector(".dropfile").style["backgroundColor"] = "hsla(0, 0%, 0%, 0)"
+    document.querySelector(".dropfile").style["color"] = "#fff"
+});
+
+document.querySelector(".play").addEventListener("click", async (event) => {
+    var x = await doInvoke("toggleplay");
+    if (x == true) {
+        document.querySelector(".interactiveToggle").src = "assets/play.svg"
+    } else {
+        document.querySelector(".interactiveToggle").src = "assets/pause.svg"
+    }
+    console.log(x)
+});
+
+document.querySelector(".rewind").addEventListener("click", (event) => {
+    doInvoke("rw", -document.querySelector(".seekNum").value);
+});
+
+document.querySelector(".forward").addEventListener("click", (event) => {
+    doInvoke("rw", document.querySelector(".seekNum").value);
 });

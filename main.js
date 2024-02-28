@@ -89,13 +89,7 @@ const mpv = new mpvAPI(
 // starts MPV
 try {
     await mpv.start()
-    // loads a file
-    // await mpv.load("E:\\cool\\[CBM] FLCL Progressive 1-6 Complete (Dual Audio) [BDRip 1080p x265 10bit]\\[CBM]_FLCL_Progressive_-_1_-_RE_Start_[x265_10bit]_[BA098E3F].mkv");
     mpv.observeProperty("time-pos/full")
-
-    // file is playing
-    // sets volume to 70%
-    await mpv.volume(70);
 }
 catch (error) {
     // handle errors here
@@ -160,17 +154,10 @@ mpv.on("status", async (status) => {
 });
 
 
-
-// setInterval(async () => {
-//     let a = await mpv.getProperty("time-pos")//time-pos
-//     console.log(a)
-// }, 0.5 * 1000);
-
-
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 400,
-        height: 400,
+        width: 500,
+        height: 500,
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
@@ -180,7 +167,8 @@ const createWindow = () => {
             preload: resolve("./preload.js"),
             renderer: resolve("./renderer.js"),
         },
-        center: true
+        center: true,
+        title: "controller"
     })
 
     win.loadFile("ui/index.html")
@@ -210,11 +198,28 @@ app.whenReady().then(() => {
     })
 
     ipcMain.handle("open", async (event, file) => {
+        if (!mpv.isRunning()) {
+            try {
+                await mpv.start()
+                mpv.observeProperty("time-pos/full")
+            } catch (err) {
+                console.error(err);
+            }
+        }
         mpv.load(file);
     })
 
     ipcMain.handle("animeName", async (event, string) => {
         animeName = string
+    })
+
+    ipcMain.handle("toggleplay", async (event) => {
+        mpv.togglePause()
+        return await mpv.isPaused();
+    })
+
+    ipcMain.handle("rw", async (event, secs) => {
+        mpv.seek(secs, "relative")
     })
 
     app.on("activate", () => {
@@ -225,4 +230,8 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
     mpv.quit()
     if (process.platform !== "darwin") app.quit()
+})
+
+mpv.on("quit", async (status) => {
+    app.quit()
 })

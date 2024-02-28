@@ -9,15 +9,25 @@
 </head>
 
 <body>
-    <p>MPV Discord RPC</p>
-    <div>
-        <label>RPC Token</label><br>
-        <input class="token"><button class="tokenSave">Save</button>
+    <div class="dropfile">
+        <p>drop a file here</p>
     </div>
-    <div>
-        <label>Anime Name</label><br>
-        <input class="aniName"><button class="aniSave">Update</button><button class="aniReset">Reset</button>
+    <div class="setting">
+        <label>rpc token</label>
+        <input class="token"><button class="tokenSave">save</button>
     </div>
+    <div class="setting">
+        <label>anime name</label>
+        <input class="aniName"><button class="aniSave">update</button><button class="aniReset">reset</button>
+    </div>
+    <div class="setting" style="padding-block: 6px; padding-block-end: 0px; text-align: center;">
+        <button class="media rewind"><img src="assets/fastrewind.svg" style="filter: invert();"></button>
+        <button class="media play"><img class="interactiveToggle" src="assets/play.svg" style="filter: invert();"></button>
+        <button class="media forward"><img src="assets/fastforward.svg" style="filter: invert();"></button>
+        <label>seek by (secs)</label>
+        <input class="seekNum" type="number" value="5">
+    </div>
+
 
     <script src='../renderer.js'></script>
 </body>

@@ -1,0 +1,83 @@
+* {
+    font-family: 'Segoe UI';
+}
+
+html, body {
+    margin: 0;
+    background-color: #1e1e2e;
+}
+
+.dropfile {
+    position: relative;
+    box-sizing: border-box;
+    margin-block: 14px;
+    width: 150px;
+    height: 42px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: hsla(0, 0%, 0%, 0);
+    transition: background-color ease-in-out 0.3s, color ease-in-out 0.3s;
+    pointer-events: all;
+    outline: dashed 3px #11111b;
+    color: white;
+}
+
+.dropfile > p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: max-content;
+    pointer-events: none;
+}
+
+label {
+    display: block;
+    margin-bottom: -7px;
+    margin-left: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    user-select: none;
+}
+
+.setting {
+    background-color: #181825;
+    margin-block: 14px;
+    color: #cdd6f4;
+    padding-inline: 14px;
+    padding-block: 4px;
+    padding-block-end: 12px;
+}
+
+input {
+    all: unset;
+    background-color: #11111b;
+    border-radius: 4px;
+    outline: solid 1px #cdd6f4;
+}
+
+button {
+    all: unset;
+    background-color: #11111b;
+    border-radius: 4px;
+    outline: solid 1px #cdd6f4;
+    box-sizing: border-box;
+    padding-inline: 4px;
+    margin-inline-start: 12px;
+    cursor: pointer;
+}
+
+.media {
+    all: unset;
+    background-color: transparent;
+    box-sizing: border-box;
+    padding-block: 0px;
+    transition: scale cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    cursor: pointer;
+}
+
+.media:hover {
+    scale: 1.3;
+}
