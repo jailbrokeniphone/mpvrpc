@@ -1,0 +1,22 @@
+{
+  "name": "mpvrpc",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "run": "electron ."
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@xhayper/discord-rpc": "^1.1.2",
+    "discord-rpc": "^4.0.1",
+    "node-mpv": "^2.0.0-beta.2",
+    "prompt-sync": "^4.2.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "electron": "^29.0.1"
+  }
+}
